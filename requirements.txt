@@ -1,0 +1,13 @@
+ultralytics
+opencv-contrib-python
+scikit-learn
+matplotlib
+torch
+numpy
+albumentations
+pandas
+seaborn
+kornia
+xgboost
+joblib
+grad-cam

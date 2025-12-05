@@ -1,0 +1,67 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+
+# YOLOv11 Model Configuration with C2PSA attention layers after P3 & P4
+# Includes the custom 4-head structure for better small object detection
+
+# Parameters
+nc: 4 # number of classes <<-- Set this to your dataset's class count
+# scales: # model compound scaling constants (Commented out for direct definition)
+#   l: [1.00, 1.00, 512] # Default depth=1.0, width=1.0 corresponds to 'l' scale
+
+# --- Backbone (Enhanced Attention after P3 & P4) ---
+# YOLOv11 backbone structure with added C2PSA blocks after P3 and P4 stages.
+backbone:
+  # [from, repeats, module, args(out_channels, kernel_size, stride, ...)]
+  - [-1, 1, Conv, [64, 3, 2]]    # 0-P1/2
+  - [-1, 1, Conv, [128, 3, 2]]   # 1-P2/4
+  - [-1, 2, C3k2, [256, False, 0.25]] # 2 - P2 feature processing block output
+  # - [-1, 1, C2PSA, [256]]          # Removed Attention after P2 stage
+
+  - [-1, 1, Conv, [256, 3, 2]]   # 3-P3/8 (Index changed from 4)
+  - [-1, 2, C3k2, [512, False, 0.25]] # 4 - P3 feature processing block output (Index changed from 5)
+  - [-1, 1, C2PSA, [512]]          # 5 <-- NEW: Attention after P3 stage (Index changed from 6)
+
+  - [-1, 1, Conv, [512, 3, 2]]   # 6-P4/16 (Index changed from 7)
+  - [-1, 2, C3k2, [512, True]]   # 7 - P4 feature processing block output (Index changed from 8)
+  - [-1, 1, C2PSA, [512]]          # 8 <-- NEW: Attention after P4 stage (Index changed from 9)
+
+  - [-1, 1, Conv, [1024, 3, 2]]  # 9-P5/32 (Index changed from 10)
+  - [-1, 2, C3k2, [1024, True]]  # 10 - P5 feature processing block output (Index changed from 11)
+
+  - [-1, 1, SPPF, [1024, 5]]     # 11 - Spatial Pyramid Pooling Fast (Index changed from 12)
+  - [-1, 2, C2PSA, [1024]]       # 12 - Original Attention mechanism before the neck (Index changed from 13)
+
+# --- Head (Feature Fusion & Detection - 4 Head) ---
+# Modified Neck/Head structure incorporating a P2 detection layer.
+# Indices updated to reflect backbone changes.
+head:
+  # --- Top-Down Path (Fusing high-level features with low-level details) ---
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]] # 13 - Upsample from P5 Attention output (layer 12)
+  - [[-1, 8], 1, Concat, [1]] # 14 - Concat upsampled P5 features with P4 Attention features (layer 8)
+  - [-1, 2, C3k2, [512, False]] # 15 - Process fused P4 features (Output for P4 head path)
+
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]] # 16 - Upsample from fused P4 (layer 15)
+  - [[-1, 5], 1, Concat, [1]] # 17 - Concat upsampled P4 features with P3 Attention features (layer 5)
+  - [-1, 2, C3k2, [256, False]] # 18 - Process fused P3 features (Output for P3 head path)
+
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]] # 19 - Upsample from fused P3 (layer 18)
+  - [[-1, 2], 1, Concat, [1]] # 20 - Concat upsampled P3 features with P2 features (layer 2)
+  - [-1, 2, C3k2, [256, False]] # 21 - Process fused P2 features (Output P2/Tiny Head)
+
+  # --- Bottom-Up Path (Propagating stronger low-level features upwards) ---
+  - [-1, 1, Conv, [256, 3, 2]] # 22 - Downsample from P2 head output (layer 21)
+  - [[-1, 18], 1, Concat, [1]] # 23 - Concat downsampled P2 with P3 path features (layer 18)
+  - [-1, 2, C3k2, [512, False]] # 24 - Process fused P3 features (Output P3/Small Head)
+
+  - [-1, 1, Conv, [512, 3, 2]] # 25 - Downsample from P3 head output (layer 24)
+  - [[-1, 15], 1, Concat, [1]] # 26 - Concat downsampled P3 with P4 path features (layer 15)
+  - [-1, 2, C3k2, [512, False]] # 27 - Process fused P4 features (Output P4/Medium Head)
+
+  - [-1, 1, Conv, [512, 3, 2]] # 28 - Downsample from P4 head output (layer 27)
+  - [[-1, 12], 1, Concat, [1]] # 29 - Concat downsampled P4 with P5 backbone attention output (layer 12)
+  - [-1, 2, C3k2, [1024, True]] # 30 - Process fused P5 features (Output P5/Large Head)
+
+  # --- Detection Layer ---
+  # Connects the output feature maps from each scale to the detection module.
+  # Order corresponds to P2, P3, P4, P5 outputs.
+  - [[21, 24, 27, 30], 1, Detect, [nc]] # Detect(P2_out, P3_out, P4_out, P5_out)
