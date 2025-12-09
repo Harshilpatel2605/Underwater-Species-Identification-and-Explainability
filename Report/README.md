@@ -1,3 +1,3 @@
 ## How to Run
 
-### Run btp-article.tex in any latex environment like overleaf to get the output.
+### Download this whole folder, upload it in any latex environment like Overleaf and run `btp-article.tex`.
