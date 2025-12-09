@@ -1,0 +1,589 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Encoding & micro-typography ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}            % subtle typographic improvements
+\microtypecontext{spacing=nonfrench} 
+
+% --- Page geometry (smaller margins) ---
+\usepackage{tabularx}
+\usepackage[%
+  a4paper,
+  left=1.1in,
+  right=1.1in,
+  top=1.1in,
+  bottom=1.1in,
+  includehead, includefoot
+]{geometry}
+
+
+% If you prefer Latin Modern instead, replace the two lines above with:
+\usepackage{lmodern}
+\usepackage{amsmath} % keep math packages below as well
+
+% --- Basic paragraph layout ---
+\setlength{\parskip}{0.6em}      % space between paragraphs
+\setlength{\parindent}{0pt}      % no indent (consistent with your earlier style)
+\linespread{1.03}                % slightly more open leading for readability
+
+% --- Mathematics packages (kept and extended) ---
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}           % handy math extensions (\coloneqq, paired delimiters)
+\usepackage{bm}                  % bold symbols
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\argmin}{arg\,min}
+
+% number equations within sections
+\numberwithin{equation}{section}
+
+% --- Graphics, figures, captions ---
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,keepaspectratio}
+\graphicspath{{img/}}
+\usepackage{caption}
+\usepackage{subcaption}          % for subfigure (a), (b) panels
+\captionsetup{font=small,labelfont=bf,skip=6pt}
+
+% --- Tables ---
+\usepackage{booktabs}            % better rules in tables
+\usepackage{threeparttable}      % table notes
+\usepackage{longtable}           % multipage tables
+\usepackage{multirow}
+
+% --- Units and numbers ---
+\usepackage{units}               % you already used this; kept for compatibility
+\usepackage{siunitx}             % recommended for consistent numbers/units
+\sisetup{detect-family=true,detect-mode=true,group-separator = {,}}
+
+% --- Code listings ---
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  columns=fullflexible,
+  frame=single,
+  xleftmargin=2pt,
+  xrightmargin=2pt
+}
+
+% --- Floats and placement ---
+\usepackage{float}
+\usepackage{placeins}            % \FloatBarrier when needed
+
+% --- Algorithms and pseudocode (use where needed) ---
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+
+
+% --- Bibliography & citations ---
+\usepackage[numbers,sort&compress]{natbib}
+
+% --- Hyperlinks and clever referencing ---
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+% --- Headers & footers ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{\thepage}
+\fancyfoot[C]{\small \institutename}
+
+% --- Lists control ---
+\usepackage{enumitem}
+\setlist{nosep,left=0pt}
+
+% --- Useful packages for drafts / placeholders ---
+\usepackage{mwe}                % placeholder images for development
+\usepackage{kantlipsum}         % dummy text, remove later
+
+
+
+% --- Helpful macros (kept from your original file) ---
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}
+\newcommand{\docenv}[1]{\textsf{#1}}
+\newcommand{\docpkg}[1]{\texttt{#1}}
+\newcommand{\doccls}[1]{\texttt{#1}}
+\newcommand{\docclsopt}[1]{\texttt{#1}}
+
+\newcommand{\institutename}{Indian Institute of Technology Goa}
+\newcommand{\departmentname}{Computer Science and Engineering }
+
+% --- Project info (user-editable) ---
+\newcommand{\projecttitle}{\textbf{Underwater Species Identification and Explainability using Machine Learning}}
+\newcommand{\studentnameA}{Md Hamza Z Sabugar}
+\newcommand{\studentrollnumberA}{2203126}
+\newcommand{\studentnameB}{Harshil N Patel}
+\newcommand{\studentrollnumberB}{2203123}
+\newcommand{\adviser}{Dr. Clint P. George}
+\newcommand{\adviserdepartment}{Computer Science and Engineering}
+\def\hascoadv{TRUE}
+\newcommand{\coadviser}{Dr. Satyanath Bhat}
+\newcommand{\coadviserdepartment}{Computer Science and Engineering}
+
+% Optional: set PDF metadata using project macros (will be set later, after names)
+% \hypersetup{pdfauthor={\studentname}, pdftitle={\projecttitle}}
+
+% ---------------------------
+% End improved preamble
+% ---------------------------
+
+\title{\projecttitle\thanks{A project report submitted to the Department of \departmentname in partial fulfillment of the requirements for the B. Tech. degree at the  \textsc{\institutename}.}
+\thanks{\textit{Supervisor:} \textbf{\adviser}, \adviserdepartment}
+\ifdefined\hascoadv
+  \thanks{\textit{Co-supervisor:} \textbf{\coadviser}, \coadviserdepartment}
+\fi
+}
+\author{\studentname}
+\date{\today}  % if the \date{} command is left out, the current date will be used
+
+\begin{document}
+
+\thispagestyle{empty}
+
+
+\begin{center}
+
+\includegraphics[width=.3\linewidth]{IIT-Goa-Logo-Black-on-White}
+\vspace{3cm}
+
+{\Large \projecttitle}\\[1em]
+{\large B. Tech. Project  Report}
+
+\vspace{1cm}
+\textsc{\studentnameB}
+
+\textit{Roll Number:} \studentrollnumberB
+
+\vspace{.5cm}
+\textsc{\studentnameA}
+
+\textit{Roll Number:} \studentrollnumberA
+
+\vspace{1cm}
+\textit{Month of Submission:} Dec 2025
+
+\vspace{2cm}
+
+\textit{Supervisor:} \textbf{\adviser}, \adviserdepartment
+
+\ifdefined\hascoadv
+  \textit{Co-supervisor:} \textbf{\coadviser}, \coadviserdepartment
+\fi
+
+
+\vfill 
+\noindent {\footnotesize \emph{This report is submitted towards partial fulfillment of the requirements for the award of the Bachelor of Technology degree in \departmentname at the \institutename.}}
+
+\end{center}
+
+
+
+
+\clearpage
+
+\maketitle% this prints the handout title, author, and date
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% WRITE YOU REPORT CONTENT HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{abstract}
+\noindent This report details the development and implementation of a robust deep learning model, YOLO for realtime automated underwater species identification. The system was trained and evaluated on diverse underwater imagery datasets to accurately classify marine organisms. Critically, to address the need for model explainability, in sensitive ecological applications, a technique such as Grad-CAM and Eigen-CAM is integrated. This integration allows for visualization of the specific image regions driving the model's precision, thereby building trust and transparency in the identification results.  
+\end{abstract}
+
+% B. Tech. report outline 
+% Please stick to this outline
+\section{Introduction and Overview}\label{sec:intro}
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.98\linewidth]{cover.jpg}
+    \caption{An example figure.\label{fig:sample-2}}
+\end{figure}
+
+This B.Tech Project, titled Underwater Species Identification and Explainability Using Machine Learning, addresses the critical need for an automated solution in marine monitoring, as manually analyzing vast amounts of underwater video footage is slow, highly prone to human error, and impractical for large-scale ecosystem studies.  Our main objective is to create a deep learning-powered automated system for fish detection and classification in real time.  Crucially, the system is designed to go beyond standard accuracy by focusing on explainability, which provides clear and reliable insights into how the model makes its predictions, making the system reliable for researchers and conservationists.The project addresses important domain-specific issues, such as the scarcity of sizable, varied underwater datasets and the intrinsic image degradation brought on by light absorption, scattering, color distortion, and marine particles.  To ensure robustness, we utilize advanced deep learning architectures like YOLOv11 and YOLOv12 , incorporate comprehensive pre-processing pipelines, and implement architectural modifications such as adding extra attention modules to refine feature extraction in low-visibility conditions.  We use the gradient-free EigenCAM method for the crucial explainability component, which yields accurate, real-time heatmaps that tightly contour the species and demonstrate that the model is concentrating on pertinent physical characteristics (such as scales or texture) rather than just color biases or background noise.
+
+\section{Related Work\cite{Zhou2024}}\label{sec:related-work}
+
+The domain of real-time underwater object detection has seen significant advancements, primarily driven by the need for scalable marine environmental monitoring despite the challenges posed by poor image quality and varying object sizes. Many existing works focus on optimizing single-stage detectors, with recent studies successfully improving YOLO architectures (e.g., YOLOv8) through the integration of specialized components like the Cross Stage Multi-Branch and Large Kernel Spatial Pyramid to enhance feature extraction from complex underwater scenes. Furthermore, successful methodologies include network designs like YWnet, which leverages a Convolutional Block Attention mechanism for better small target detection, and DP-FishNet, which utilizes a dual-path pyramid vision transformer framework for robust fish identification. While these efforts have significantly advanced detection speed and accuracy, there is a recognized gap in model transparency. Consequently, our project extends the existing state-of-the-art by integrating Explainable AI (XAI) techniques, specifically EigenCAM, to not only achieve high-performance species classification but also provide a real-time, precise, and structurally justified explanation for every prediction.
+
+
+\section{Methodology}\label{sec:methodology}
+
+\begin{enumerate}
+    \item \textbf{Data Preparation and Augmentation}
+    \vspace{0.2cm}
+    
+    The project utilized two primary datasets to ensure the robustness and generalization of the detection model across various underwater conditions:
+    \vspace{0.2cm}
+    
+    \begin{itemize}
+        \item \textbf{Fish-Detection Dataset}: This dataset comprises relatively clear underwater images, serving as a baseline for initial model training and performance evaluation under ideal conditions. This data has: 
+        \vspace{0.2cm}
+        
+        \begin{itemize}
+            \item Classes : AngelFish, Bluetang, ButterflyFish, ClownFish, GoldFish, Gourami, Morishidol, PlatyFish, Ribboned Sweet Lips, Three striped DamselFish, Yellow cichilid, Yellowtang, ZebraFish
+            \item Train images count : 8448
+            \item Test images count : 407
+            \item Val images count : 798
+        \end{itemize}
+        \vspace{0.2cm}
+        
+        \item \textbf{URPC2020 Dataset}: This set introduced the real-world challenges of underwater vision, containing images severely impacted by low visibility, blur, light scattering, and color cast, which was crucial for testing the efficacy of the proposed pre-processing methods.This data has: 
+        \vspace{0.2cm}
+        
+        \begin{itemize}
+            \item Classes : Echinus, Holothurian, Scallop, Starfish 
+            \item Train images count : 5543
+            \item Test images count : 800
+            \item Val images count : 1200
+        \end{itemize}
+    \end{itemize}
+    \vspace{0.2cm}
+    
+    To prevent overfitting and enhance the model's ability to generalize, a comprehensive set of data augmentation techniques was employed using the Albumentations library. These augmentations included standard operations like rotation, scaling, and flipping, alongside color-space adjustments, which are essential for simulating the diverse lighting conditions found underwater.
+    \vspace{0.2cm}
+    
+    \item \textbf{Image Pre-processing Pipelines}
+    \vspace{0.2cm}
+    
+    Addressing the severe degradation of underwater images was a cornerstone of the methodology. Instead of relying on a single method, five distinct pre-processing pipelines were systematically developed and tested to determine the optimal sequence for image enhancement.
+    
+    The foundational techniques used in these pipelines included:
+    \begin{itemize}
+        \vspace{0.2cm}
+        
+        \item \textbf{Color Correction}: Methods like white-balance and adaptive-red-boost were applied to neutralize the blue/green color cast resulting from light absorption in water.
+        \vspace{0.2cm}
+        
+        \item \textbf{Contrast Enhancement}: Techniques such as lab-clahe (Contrast Limited Adaptive Histogram Equalization in LAB color space) were used to improve local contrast and reveal details obscured by haze or low light.
+        \vspace{0.2cm}
+        
+        \item \textbf{Denoising}: Advanced methods, including Adaptive Denoising and various Blurring filters, were implemented to reduce image noise, such as "marine snow," without significantly blurring the target species.
+    \end{itemize}
+    \vspace{0.2cm}
+    
+    The most effective pipeline was then selected based on its ability to maximize the detection accuracy (mAP) of the subsequent YOLO model, demonstrating that targeted image enhancement is vital for complex underwater environments.
+    \vspace{0.2cm}
+    
+    \item \textbf{Deep Learning Architecture and Modifications}
+    \begin{itemize}
+        \vspace{0.2cm}
+        
+        \item \textbf{Model Selection}
+        \vspace{0.2cm}
+        
+        The project utilized the You Only Look Once (YOLO) framework, specifically YOLOv11 and YOLOv12 variants, due to their superior balance of high detection accuracy and rapid inference speed, which is non-negotiable for real-time video analysis. YOLO functions as a single-stage detector, simultaneously predicting bounding boxes and class probabilities across a grid over the entire image in a single pass. This design minimizes latency compared to two-stage detectors.
+        
+        The standard YOLO architecture consists of three main components:
+        \vspace{0.2cm}
+        
+        \begin{enumerate}
+            \vspace{0.2cm}
+        
+            \item \textbf{Backbone}: Responsible for extracting multi-scale feature maps from the input image.
+            \vspace{0.2cm}
+            
+            \item \textbf{Neck}: A feature pyramid network (FPN) structure that aggregates and fuses features from different layers of the backbone, enabling the model to detect objects of varying sizes.
+            \vspace{0.2cm}
+            
+            \item \textbf{Head}: The final prediction layer that outputs the bounding box coordinates and classification scores.
+        \end{enumerate}
+        \vspace{0.2cm}
+
+        \begin{figure}[H] % [h] tries to place it "here"
+            \centering
+            \includegraphics[width=0.9\linewidth]{yolo.jpg}
+            \caption{YOLO11 Architecture}
+    
+        \end{figure}
+
+        \item \textbf{Architectural Modifications}
+        
+        To further enhance performance in the challenging underwater domain, the baseline YOLOv11 model was structurally modified:
+        \vspace{0.2cm}
+        
+        \begin{itemize}
+            \vspace{0.2cm}
+            
+            \item \textbf{Attention Mechanism Integration}: An Extra Attention Module was added to the network's structure. This module enhances the model's ability to focus on salient features of the target species, effectively filtering out irrelevant background noise and improving detection in turbid water.
+            \vspace{0.2cm}
+            
+            \item \textbf{C3K2 Block Replacement}: The standard C3K2 blocks in the network's neck were replaced with Cross Stage Multi-Branch (CSMB)-Darknet blocks. This modification improves the flow of information and enhances the feature extraction capacity, proving beneficial for detecting partially occluded or small objects.
+            \vspace{0.2cm}
+            
+            \item \textbf{U-Shaped Transformer Enhancement}: A U-shaped Transformer block was incorporated into the architecture. This component aids in capturing global dependencies and contextual information across the image, which is vital when local features are obscured by poor visibility.
+        \end{itemize}
+    \end{itemize}
+    \vspace{0.2cm}
+    
+    \item \textbf{Explainable AI (XAI) Implementation}
+    \vspace{0.2cm}
+    
+    The final, distinguishing aspect of the methodology was the implementation of Explainable AI (XAI) to ensure model transparency and reliability.
+    \vspace{0.2cm}
+    
+    \textbf{Technique Used}: The project utilized EigenCAM for generating visual explanations (heatmaps).
+    \vspace{0.2cm}
+    
+    \textbf{Rationale for EigenCAM}: Unlike gradient-based methods (e.g., Grad-CAM) which can be slow and rely on backpropagation, EigenCAM is gradient-free, allowing it to generate explanations instantly, matching YOLO’s high-speed inference without introducing lag.
+    \vspace{0.2cm}
+    
+    \textbf{Proof of Concept}: EigenCAM's output provides precise object localization, with heatmaps tightly contouring the species' shape (e.g., scales, fins), demonstrating that the model is making predictions based on the correct physical features of the fish rather than spurious background elements (like coral or color biases). This validates the structural integrity of the detection results.
+\end{enumerate}
+
+
+\section{Experimental Analysis}\label{sec:experiments}
+
+\subsection{\textbf{Evaluation Metrics}}
+
+    The primary metrics used for object detection performance were:
+    
+    \begin{itemize}
+        \vspace{0.2cm}
+        
+        \item \textbf{Precision}, \textbf{Recall}, and \textbf{F1-Score}: Used to assess the combined performance of feature extraction and traditional classifiers.
+        \vspace{0.2cm}
+        
+        \item \textbf{Mean Average Precision (mAP)}:
+        \begin{itemize}
+            \vspace{0.2cm}
+            
+            \item \textbf{mAP@0.5}: The mean Average Precision calculated at an Intersection over Union (IoU) threshold of 0.5, representing general localization accuracy.
+            \vspace{0.2cm}
+            
+            \item \textbf{mAP@0.5:0.95}: The average mAP across IoU thresholds from 0.5 to 0.95 (in 0.05 steps), providing a robust measure of both detection and localization quality.
+        \end{itemize}
+    \end{itemize}
+    \vspace{0.2cm}
+
+\subsection{Pre-processing Pipeline Analysis}
+
+The impact of pre-processing on image quality was analyzed using the Peak Signal-to-Noise Ratio (PSNR) metric, which quantifies image similarity and reconstruction quality. Five distinct Computer Vision (CV) pipelines were created and tested.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|r|} 
+        \hline
+        \textbf{Pipeline} & \textbf{PSNR} \\ % Header row
+        \hline
+        Pipeline1 & $26\hspace{0.1cm}dB$ \\
+        Pipeline2 & $28\hspace{0.1cm}dB$ \\
+        Pipeline3 & $\textbf{30\hspace{0.1cm}dB}$ \\
+        Pipeline4 & $25\hspace{0.1cm}dB$ \\
+        Pipeline5 & $24\hspace{0.1cm}dB$ \\
+        \hline
+    \end{tabular}
+    \caption{Pipeline Evaluation}
+\end{table}
+
+\textbf{Analysis}: Pipeline 3 yielded the highest PSNR score of \textbf{30 dB}. This result confirmed that this specific sequence of enhancement techniques offered the best balance between desired image transformation (e.g., color correction, denoising) and data fidelity, thereby minimizing distortion while maximizing feature clarity for the detection model.
+
+Pipeline 3 was applied to the datasets, and various YOLO models were trained on both the original and processed data.Following are the results : 
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\linewidth}{|l|X|c|c|c|c|} 
+        \hline
+        \textbf{Model} & \textbf{Data Used} & \textbf{Precision} & \textbf{Recall} & \textbf{mAP@0.5} & \textbf{mAP@0.5:0.95} \\ % Header row
+        \hline
+        YOLOv11 & Original Data & $\textbf{0.8979}$ & $0.8634$ & $\textbf{0.9261}$ & $\textbf{0.7084}$ \\
+        YOLOv11 & Original + Pipeline3 Processed Data & $0.8876$ & $0.8558$ & $0.9220$ & $0.7039$ \\
+        YOLOv12 & Original Data & $0.8903$ & $0.8798$ & $0.9242$ & $0.7073$ \\
+        YOLOv12 & Original + Pipeline3 Processed Data & $0.8645$ & $\textbf{0.8864}$ & $0.9202$ & $0.7069$ \\
+        \hline
+    \end{tabularx}
+    \caption{Model comparison}
+\end{table}
+
+Training on processed data yielded lower accuracy than on the original data. This anomaly was attributed to the fact that the Fish-Detection dataset already contains clear and augmented images; further CV pre-processing introduced artifacts and noise, degrading the image quality rather than improving it. From here after, we will be using \textbf{U-shape transformer image enhancer model} for pre-processing as it is \textbf{State of the art}. 
+\subsection{Comparative Analysis of YOLO Models and Feature Extraction}
+
+\textbf{YOLO Feature Extraction with Traditional Classifiers}
+
+We used YOLO as a feature extractor and trained four traditional machine learning classifiers (SVM, KNN, XGBoost, Random Forest) on the extracted deep features.The table below shows the performance of these classifiers on the extracted features:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|c|} 
+        \hline
+        \textbf{Classifier} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-Score} \\ % Header row
+        \hline
+        YOLO classifier & $\textbf{0.735}$ & $\textbf{0.598}$ & $\textbf{0.659}$ \\
+        SVM & $0.6$ & $0.51$ & $0.53$ \\
+        KNN & $0.59$ & $0.5$ & $0.51$ \\
+        XGBoost & $0.6$ & $0.52$ & $0.53$ \\
+        Random-Forest & $0.61$ & $0.5$ & $0.52$ \\
+        \hline
+    \end{tabular}
+    \caption{Classifier comparison}
+\end{table}
+
+From this, we can say that YOLO classifier is the best one as it has higher precission and F1-score then rest of the trained classifiers.
+
+\subsection{Analysis of Architectural Modifications}
+
+We implemented three architectural modifications to the YOLOv11 model to enhance its feature refinement capability in challenging underwater conditions.
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\linewidth}{|l|X|X|} % No vertical lines
+        \toprule
+        \textbf{Model Modification} & \textbf{Description of change} & \textbf{Enhancement Goal} \\ 
+        \midrule
+        Extra Detection Head & 
+        Added an additional prediction layer in the neck of the YOLOv11 architecture & 
+        Focus on smaller and finer underwater objects at a different feature scale \\
+        \addlinespace % Adds a little breathing room between rows
+        Extra Attention Module & 
+        Inserted an additional attention module into the backbone & 
+        Improve feature refinement in low-visibility, helping the network focus on more informative regions \\
+        \addlinespace
+        Head + CSMB Backbone Change & 
+        Added an extra detection head and replaced C3K2 modules with CSMB-Darknet blocks & 
+        Align backbone and head structure for consistent, improved feature flow and enhanced detection. \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Architectural changes.}
+\end{table}
+
+The key performance difference was observed on the challenging \textbf{URPC2020 dataset}, where model enhancements are most critical.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|} 
+        \hline
+        \textbf{Model} & \textbf{Precision} & \textbf{Recall} & \textbf{mAP@0.5} & \textbf{mAP@0.5:0.95}\\ % Header row
+        \hline
+        YOLOv11 Baseline & $0.786$ & $0.66$ & $0.736$ & $0.423$\\
+        YOLOv11 + Extra Detection Head & $0.758$ & $0.609$ & $0.68$ & $0.38$ \\
+        YOLOv11 + Extra Attention Module & $0.799$ & $\textbf{0.709}$ & $\textbf{0.775}$ & $\textbf{0.446}$\\
+        YOLOv11 + Head + CSMB Backbone & $\textbf{0.806}$ & $0.678$ & $0.764$ & $0.439$\\
+        \hline
+    \end{tabular}
+    \caption{YOLO model evaluation on Original Data}
+\end{table}
+
+We also applied \textbf{U-shape transformer Image enhancer model} as a blackbox and sent Original + Enhanced images for training. Following are the results :
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|} 
+        \hline
+        \textbf{Model} & \textbf{Precision} & \textbf{Recall} & \textbf{mAP@0.5} & \textbf{mAP@0.5:0.95}\\ % Header row
+        \hline
+        YOLOv11 Baseline & $0.735$ & $0.588$ & $0.661$ & $0.325$\\
+        YOLOv11 + Extra Detection Head & $0.738$ & $0.566$ & $0.649$ & $0.318$ \\
+        YOLOv11 + Extra Attention Module & $\textbf{0.762}$ & $\textbf{0.598}$ & $\textbf{0.681}$ & $\textbf{0.325}$ \\
+        YOLOv11 + Head + CSMB Backbone & $0.741$ & $0.577$ & $0.663$ & $0.325$\\
+        \hline
+    \end{tabular}
+    \caption{YOLO model evaluation on Original+Enhanced Data}
+\end{table}
+
+Now, Similar models are also trained on \textbf{Fish detection Dataset} to check the model performance across dataset.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|} 
+        \hline
+        \textbf{Model} & \textbf{Precision} & \textbf{Recall} & \textbf{mAP@0.5} & \textbf{mAP@0.5:0.95}\\ % Header row
+        \hline
+        YOLOv11 Baseline & $0.899$ & $0.862$ & $0.926$ & $0.707$\\
+        YOLOv11 + Extra Detection Head & $0.906$ & $0.876$ & $0.928$ & $0.714$ \\
+        YOLOv11 + Extra Attention Module & $\textbf{0.916}$ & $\textbf{0.887}$ & $\textbf{0.937}$ & $\textbf{0.732}$\\
+        YOLOv11 + Head + CSMB Backbone & $0.908$ & $0.88$ & $0.933$ & $0.723$\\
+        \hline
+    \end{tabular}
+    \caption{YOLO model evaluation on Original Data}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|} 
+        \hline
+        \textbf{Model} & \textbf{Precision} & \textbf{Recall} & \textbf{mAP@0.5} & \textbf{mAP@0.5:0.95}\\ % Header row
+        \hline
+        YOLOv11 Baseline & $0.893$ & $0.865$ & $0.903$ & $0.654$\\
+        YOLOv11 + Extra Detection Head & $0.886$ & $0.872$ & $0.908$ & $0.677$ \\
+        YOLOv11 + Extra Attention Module & $\textbf{0.897}$ & $\textbf{0.882}$ & $\textbf{0.919}$ & $\textbf{0.703}$ \\
+        YOLOv11 + Head + CSMB Backbone & $0.876$ & $0.874$ & $0.914$ & $0.695$\\
+        \hline
+    \end{tabular}
+    \caption{YOLO model evaluation on Original+Enhanced Data}
+\end{table}
+
+\textbf{Analysis Summary}: The model with the \textbf{Extra Attention Module} consistently showed the highest mAP, validating that the attention mechanism successfully directed the network's focus to key morphological features, overcoming the challenges of low visibility and water turbidity.
+
+\section{Explainability Analysis}
+
+This section analyzes the use of Explainable AI (XAI) to validate the model's decision-making process.
+
+\subsection{Comparison of XAI Techniques}
+
+We compared two main XAI visualization methods: Grad-CAM and EigenCAM. 
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\linewidth}{|l|X|X|} 
+        \hline
+        \textbf{Feature} & \textbf{Grad-CAM (Patch based Adaptation)} & \textbf{Eigen-CAM (Used for Final System)}\\ % Header row
+        \hline
+        Mechanism & Uses gradients (backpropagation), adapted using a patch-based approach for YOLO & \textbf{Gradient-free}, finds main directions of activation using Principal Components\\
+        \hline
+        Speed & Slower, as it involves backpropagation & \textbf{Real-Time Efficiency}, generates explanations instantly, matching YOLO's high-speed inference without lag\\
+        \hline
+        Localization & Can produce noisy or less-precise heatmaps & \textbf{Precise Object Localization}, heatmaps tightly contour the species' shape (e.g., spines, fins) \\
+        \hline
+        Validation Focus & Confirmed focus on discriminative morphological features (e.g., spikes of the Echinus) & Proved the model identifies physical traits (scales/texture) rather than relying on color biases or background noise\\
+        \hline
+    \end{tabularx}
+    \caption{Grad-CAM vs Eigen-CAM}
+\end{table}
+
+Thus, using Eigen-CAM, the gradient free approach, is better for explainability purposes for our model.
+
+\subsection{Visual Validation of Model Integrity}
+
+The EigenCAM heatmaps were used to visually confirm the model's structural integrity. Following is the Eigen-CAM visualization for Starfish:
+
+\begin{figure}[hbt!]
+    \centering 
+    \begin{minipage}{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{starfish-o.jpg}
+        \caption{URPC2020 Starfish sample image}
+    \end{minipage}
+    \hfill 
+    \begin{minipage}{0.45\linewidth}
+        \centering 
+        \includegraphics[width=\linewidth]{starfish-e.jpg}
+        \caption{Heatmaps on sample Starfish image}
+    \end{minipage}
+    
+    \caption{Starfish feature extraction and heatmaps for explainability}
+\end{figure}
+
+The heatmaps generated for the Starfish class on the challenging URPC2020 dataset showed that the highest activation was concentrated on the spines and texture of the organism, proving the model was focusing on correct morphological features instead of the background environment. This level of transparency ensures the system is trustworthy and reliable for marine researchers.
+
+
+
+\section{Discussion}
+
+The experimental results validate the efficacy of our proposed architectural enhancements and the necessity of targeted data handling for complex underwater environments. We observed that applying the robust Computer Vision (CV) pre-processing pipeline, which was optimal in terms of PSNR (30 dB), unexpectedly degraded performance on the initially clear Fish-Detection dataset, confirming that enhancement should be conditionally applied only to turbid data. The comparative analysis demonstrated the superior efficiency of one-stage detectors like YOLO, outperforming traditional classifiers trained on deep features in terms of speed and real-time capability. Among the specific architectural modifications tested, the \textbf{YOLOv11 model augmented with the Extra Attention Module} consistently achieved the highest Mean Average Precision (mAP) on the challenging URPC2020 dataset. This strongly suggests that a mechanism to boost feature refinement is the most critical factor for accurate detection under low visibility and high turbidity. Furthermore, the integration of \textbf{EigenCAM} successfully addressed the crucial need for model transparency without compromising the real-time performance of the YOLO framework. Unlike Grad-CAM, the gradient-free EigenCAM generated instant heatmaps that provided precise localization and visual proof of the model's structural integrity. For instance, the XAI results on the Starfish class explicitly showed the model focusing on high-texture areas like the organism's spines, confirming that the predictions were based on correct morphological features and not background noise or color biases. This transparency is vital, transforming the system from a black-box predictor into a trustworthy tool for marine biologists. Ultimately, the methodology achieved the key project objective of developing an accurate, real-time, and explainable deep learning system for marine species identification.
+\cite{Saudi}
+\cite{Ushape}
+\bibliography{btp}
+\bibliographystyle{apalike}
+
+
+\end{document}

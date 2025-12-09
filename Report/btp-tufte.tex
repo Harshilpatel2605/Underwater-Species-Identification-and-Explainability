@@ -1,0 +1,358 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% B. Tech. project report template based on the Tufte style 
+% 
+% Edited by: Clint P. George 
+% Edited on: March 29, 2022 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{tufte-handout}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+% Set up the images/graphics package and path 
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{img/}} % PUT ALL YOUR IMAGES IN img 
+
+
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+
+% Provides paragraphs of dummy text
+\usepackage{mwe}
+\usepackage{kantlipsum}  
+
+% These commands are used to pretty-print LaTeX commands
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+
+\newcommand{\institutename}{Indian Institute of Technology Goa}
+\newcommand{\departmentname}{Computer Science and Engineering }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHANGE THE BELOW LINES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\projecttitle}{Your B. Tech. Project Title}
+\newcommand{\studentname}{Your Full Name}
+\newcommand{\studentrollnumber}{Your Roll Number}
+\newcommand{\adviser}{Dr. Full Name}
+\newcommand{\adviserdepartment}{Computer Science and Engineering}
+
+%% UNCOMMENT AND EDIT THE BELOW THREE LINES, ONLY IF you have a co-adviser/supervisor  
+\def\hascoadv{TRUE}  
+\newcommand{\coadviser}{Dr. Full Name}
+\newcommand{\coadviserdepartment}{Computer Science and Engineering}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DO NOT CHANGE THE BELOW LINES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{\projecttitle\thanks{A project report submitted to the Department of \departmentname in partial fulfillment of the requirements for the B. Tech. degree at the  \textsc{\institutename}.}
+\thanks{\textit{Supervisor:} \textbf{\adviser}, \adviserdepartment}
+\ifdefined\hascoadv
+  \thanks{\textit{Co-supervisor:} \textbf{\coadviser}, \coadviserdepartment}
+\fi
+}
+\author[Last name]{\studentname}
+\date{\today}  % if the \date{} command is left out, the current date will be used
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\begin{fullwidth}
+\begin{center}
+
+\includegraphics[width=.3\linewidth]{IIT-Goa-Logo-Black-on-White}
+\vspace{3cm}
+
+{\Large Bachelor Thesis Project (BTP) Report}
+
+\vspace{1cm}
+\textsc{\studentname}
+
+\vspace{.2cm}
+\textit{Roll Number:} \studentrollnumber
+
+\textit{Month of Submission:} May 2024
+
+\vspace{2cm}
+
+\textit{Supervisor:} \textbf{\adviser}, \adviserdepartment
+
+\ifdefined\hascoadv
+  \textit{Co-supervisor:} \textbf{\coadviser}, \coadviserdepartment
+\fi
+
+\end{center}
+
+\vfill 
+\noindent {\small \emph{This report is submitted towards partial fulfillment of the requirements for the award of the Bachelor of Technology (B.Tech) degree in \departmentname at the \institutename.}}
+\end{fullwidth}
+
+\clearpage
+
+\maketitle% this prints the handout title, author, and date
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% WRITE YOU REPORT CONTENT HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{abstract}
+\noindent Write a 5-6 sentence abstract here.  
+\end{abstract}
+
+% B. Tech. report outline 
+% Please stick to this outline
+
+\section{Introduction and Overview}\label{sec:intro}
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.98\linewidth]{example-image-golden}
+    \caption{An example figure.\label{fig:sample-2}}
+\end{figure}
+
+\kant[1]
+
+
+\section{Related Work}\label{sec:related-work}
+
+\kant[1]
+
+
+\section{Methodology}\label{sec:methodology}
+
+\kant[1]
+
+
+\section{Experimental Analysis}\label{sec:experiments}
+
+\kant[1]
+
+
+\subsection{Discussion}\label{sec:discussion} 
+
+\kant[1]
+
+
+\section{Supporting Information}\label{sec:support}
+
+The source code, datasets, documentation, etc. for this project is located at
+\url{this~GitHub~repo}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%% BEGIN: SAMPLE TEXT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\section{Style Guide}\label{sec:style-guide}
+
+This section and subsections should be deleted from the final version of your report.  
+
+\subsection{Headings}\label{sec:headings}
+
+The Tufte-\LaTeX\ classes will emit an error if you try to use
+\linebreak\Verb|\subsubsection| and smaller headings.
+
+% let's start a new thought -- a new section
+\newthought{In his later books},\cite{Tufte2006} Tufte
+starts each section with a bit of vertical space, a non-indented paragraph,
+and sets the first few words of the sentence in \textsc{small caps}.  To
+accomplish this using this style, use the \Verb|\newthought| command:  
+\begin{docspec}
+  \doccmd{newthought\{In his later books\}, Tufte starts\ldots}
+\end{docspec}
+
+\subsection{Sidenotes}\label{sec:sidenotes}
+One of the most prominent and distinctive features of this style is the
+extensive use of sidenotes.  There is a wide margin to provide ample room
+for sidenotes and small figures.  Any \Verb|\footnote|s will automatically
+be converted to sidenotes.\footnote{This is a sidenote that was entered
+using the \texttt{\textbackslash footnote} command.}  If you'd like to place ancillary
+information in the margin without the sidenote mark (the superscript
+number), you can use the \Verb|\marginnote| command.\marginnote{This is a
+margin note.  Notice that there isn't a number preceding the note, and
+there is no number in the main text where this note was written.}
+
+The specification of the \Verb|\sidenote| command is:
+\begin{docspec}
+  \doccmd{sidenote[\docopt{number}][\docopt{offset}]\{\docarg{Sidenote text.}\}}
+\end{docspec}
+
+Both the \docopt{number} and \docopt{offset} arguments are optional.  If you
+provide a \docopt{number} argument, then that number will be used as the
+sidenote number.  It will change of the number of the current sidenote only and
+will not affect the numbering sequence of subsequent sidenotes.
+
+Sometimes a sidenote may run over the top of other text or graphics in the
+margin space.  If this happens, you can adjust the vertical position of the
+sidenote by providing a dimension in the \docopt{offset} argument.  Some
+examples of valid dimensions are:
+\begin{docspec}
+  \ttfamily 1.0in \qquad 2.54cm \qquad 254mm \qquad 6\Verb|\baselineskip|
+\end{docspec}
+If the dimension is positive it will push the sidenote down the page; if the
+dimension is negative, it will move the sidenote up the page.
+
+While both the \docopt{number} and \docopt{offset} arguments are optional, they
+must be provided in order.  To adjust the vertical position of the sidenote
+while leaving the sidenote number alone, use the following syntax:
+\begin{docspec}
+  \doccmd{sidenote[][\docopt{offset}]\{\docarg{Sidenote text.}\}}
+\end{docspec}
+The empty brackets tell the \Verb|\sidenote| command to use the default
+sidenote number.
+
+If you \emph{only} want to change the sidenote number, however, you may
+completely omit the \docopt{offset} argument:
+\begin{docspec}
+  \doccmd{sidenote[\docopt{number}]\{\docarg{Sidenote text.}\}}
+\end{docspec}
+
+The \Verb|\marginnote| command has a similar \docarg{offset} argument:
+\begin{docspec}
+  \doccmd{marginnote[\docopt{offset}]\{\docarg{Margin note text.}\}}
+\end{docspec}
+
+\subsection{References}
+References are placed alongside their citations as sidenotes,
+as well.  This can be accomplished using the normal \Verb|\cite|
+command.\sidenote{The first paragraph of this document includes a citation.}
+
+The complete list of references may also be printed automatically by using
+the \Verb|\bibliography| command.  (See the end of this document for an
+example.)  If you do not want to print a bibliography at the end of your
+document, use the \Verb|\nobibliography| command in its place.  
+
+To enter multiple citations at one location,\cite{Tufte2006,Tufte1990} you can
+provide a list of keys separated by commas and the same optional vertical
+offset argument: \Verb|\cite{Tufte2006,Tufte1990}|.  
+\begin{docspec}
+  \doccmd{cite[\docopt{offset}]\{\docarg{bibkey1,bibkey2,\ldots}\}}
+\end{docspec}
+
+\subsection{Figures and Tables}\label{sec:figures-and-tables}
+Images and graphics play an integral role in Tufte's work.
+In addition to the standard \docenv{figure} and \docenv{tabular} environments,
+this style provides special figure and table environments for full-width
+floats.
+
+Full page--width figures and tables may be placed in \docenv{figure*} or
+\docenv{table*} environments.  To place figures or tables in the margin,
+use the \docenv{marginfigure} or \docenv{margintable} environments as follows
+(see figure~\ref{fig:marginfig}):
+
+\begin{marginfigure}%
+  \includegraphics[width=\linewidth]{helix}
+  \caption{This is a margin figure.  The helix is defined by 
+    $x = \cos(2\pi z)$, $y = \sin(2\pi z)$, and $z = [0, 2.7]$.  The figure was
+    drawn using Asymptote (\url{http://asymptote.sf.net/}).}
+  \label{fig:marginfig}
+\end{marginfigure}
+\begin{Verbatim}
+\begin{marginfigure}
+  \includegraphics{helix}
+  \caption{This is a margin figure.}
+\end{marginfigure}
+\end{Verbatim}
+
+The \docenv{marginfigure} and \docenv{margintable} environments accept an optional parameter \docopt{offset} that adjusts the vertical position of the figure or table.  See the ``\nameref{sec:sidenotes}'' section above for examples.  The specifications are:
+\begin{docspec}
+  \doccmd{begin\{marginfigure\}[\docopt{offset}]}\\
+  \qquad\ldots\\
+  \doccmd{end\{marginfigure\}}\\
+  \mbox{}\\
+  \doccmd{begin\{margintable\}[\docopt{offset}]}\\
+  \qquad\ldots\\
+  \doccmd{end\{margintable\}}\\
+\end{docspec}
+
+Figure~\ref{fig:fullfig} is an example of the \Verb|figure*|
+environment and figure~\ref{fig:textfig} is an example of the normal
+\Verb|figure| environment.
+
+\begin{figure*}[h]
+  \includegraphics[width=\linewidth]{sine.pdf}%
+  \caption{This graph shows $y = \sin x$ from about $x = [-10, 10]$.
+  \emph{Notice that this figure takes up the full page width.}}%
+  \label{fig:fullfig}%
+\end{figure*}
+
+\begin{figure}
+  \includegraphics{hilbertcurves.pdf}
+%  \checkparity This is an \pageparity\ page.%
+  \caption{Hilbert curves of various degrees $n$.
+  \emph{Notice that this figure only takes up the main textblock width.}}
+  \label{fig:textfig}
+  %\zsavepos{pos:textfig}
+  \setfloatalignment{b}
+\end{figure}
+
+Table~\ref{tab:normaltab} shows table created with the \docpkg{booktabs}
+package.  Notice the lack of vertical rules---they serve only to clutter
+the table's data.
+
+\begin{table}[ht]
+  \centering
+  \fontfamily{ppl}\selectfont
+  \begin{tabular}{ll}
+    \toprule
+    Margin & Length \\
+    \midrule
+    Paper width & \unit[8\nicefrac{1}{2}]{inches} \\
+    Paper height & \unit[11]{inches} \\
+    Textblock width & \unit[6\nicefrac{1}{2}]{inches} \\
+    Textblock/sidenote gutter & \unit[\nicefrac{3}{8}]{inches} \\
+    Sidenote width & \unit[2]{inches} \\
+    \bottomrule
+  \end{tabular}
+  \caption{Here are the dimensions of the various margins used in the Tufte-handout class.}
+  \label{tab:normaltab}
+  %\zsavepos{pos:normaltab}
+\end{table}
+
+\subsection{Full-width text blocks}
+
+In addition to the new float types, there is a \docenv{fullwidth}
+environment that stretches across the main text block and the sidenotes
+area.
+
+\begin{Verbatim}
+\begin{fullwidth}
+Lorem ipsum dolor sit amet...
+\end{fullwidth}
+\end{Verbatim}
+
+\begin{fullwidth}
+\small\itshape\lipsum[1]
+\end{fullwidth}
+
+%%%%%%%%%%%%%%%%%%%%%%%% END: SAMPLE TEXT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DO NOT DELETE THE LINES BELOW  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliography{btp}
+\bibliographystyle{plainnat}
+
+
+\end{document}
