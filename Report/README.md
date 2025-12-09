@@ -1,3 +1,3 @@
 ## How to Run
 
-### Download this whole folder, upload it in any latex environment like Overleaf and run `btp-article.tex`.
+### Download this whole `Report` folder, upload it in any `Latex` environment like Overleaf and run `btp-article.tex`.
